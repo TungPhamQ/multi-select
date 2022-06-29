@@ -1,12 +1,24 @@
 <template>
     <div class="search-bar">
-        <input type="text" placeholder="Chọn tỉnh thành: " class="search-input">
+        <input type="text" v-model="search" placeholder="Chọn tỉnh thành: " class="search-input">
     </div>
 </template>
 
 <script>
 export default {
     name: 'SearchBar',
+    data() {
+        return {
+            search: '',
+        }
+    },
+    watch: {
+        search() {
+            this.$emit('search', this.search)
+        }
+    }
+
+
 
 }
 </script>

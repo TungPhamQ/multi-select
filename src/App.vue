@@ -18,7 +18,7 @@ export default {
     components: {
         MultiSelection
     },
-    mounted() {
+    created() {
         axios
             .get('https://provinces.open-api.vn/api/')
             .then(response => (this.listAPI = response.data))

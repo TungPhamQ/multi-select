@@ -1,12 +1,13 @@
 <template>
     <div class="list-dropdown">
         <div class="list-scroll">
-            <div v-for="item in listAPI" :key="item.code">
+            <div v-for="item in filteredSearchOption" :key="item.code">
                 <label class="option  container">
                     <input type="checkbox" checked="checked" :value="item.name" @input="selectNewOption"
                         v-model="selectedOptions">
                     <span class="checkmark"></span>
                     {{ item.name }}
+
                 </label>
             </div>
         </div>
@@ -29,6 +30,14 @@ export default {
     props: {
         listAPI: null,
         selected: Array,
+        search: String
+    },
+    computed: {
+        filteredSearchOption: function () {
+            return this.listAPI.filter((item) => {
+                return item.name.toLowerCase().trim().includes(this.search.toLowerCase().trim())
+            })
+        }
     },
     methods: {
         selectNewOption: function ($event) {

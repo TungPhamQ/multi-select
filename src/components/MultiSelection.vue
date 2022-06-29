@@ -1,9 +1,9 @@
 <template>
     <div class="multi-select">
-        <SearchBar @click.native="toggleList" />
+        <SearchBar @click.native="toggleList" @search="getSearch" />
 
         <ListDropdown :listAPI="listAPI" :selected="selected" @selectNewOption="updateSelectOption"
-            @toggleList="toggleList" v-if="isShow" />
+            @toggleList="toggleList" v-if="isShow" :search="search" />
 
         <SelectResult :selected="selected" @deleteOption="updateSelectOption" v-if="!isShow && selected.length > 0" />
     </div>
@@ -19,6 +19,7 @@ export default {
         return {
             selected: [],
             isShow: false,
+            search: '',
         }
     },
     components: {
@@ -37,6 +38,10 @@ export default {
         toggleList() {
             this.isShow = !this.isShow;
         },
+
+        getSearch(e) {
+            this.search = e;
+        }
 
     }
 
