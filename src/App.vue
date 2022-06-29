@@ -5,36 +5,34 @@
 </template>
 
 <script>
-import MultiSelection from './components/MultiSelection.vue'
-import axios from 'axios'
+import MultiSelection from "./components/MultiSelection.vue";
+import axios from "axios";
 
 export default {
-    name: 'App',
+    name: "App",
     data() {
         return {
-            listAPI: Array
-        }
+            listAPI: Array,
+        };
     },
     components: {
-        MultiSelection
+        MultiSelection,
     },
     created() {
         axios
-            .get('https://provinces.open-api.vn/api/')
-            .then(response => (this.listAPI = response.data))
+            .get("https://provinces.open-api.vn/api/")
+            .then((response) => (this.listAPI = response.data));
     },
-
-}
+};
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;200;300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;200;300;400;500;600;700;800&display=swap");
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Noto Sans', sans-serif;
-
+    font-family: "Noto Sans", sans-serif;
 }
 </style>

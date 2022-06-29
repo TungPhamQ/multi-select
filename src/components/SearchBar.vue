@@ -1,26 +1,28 @@
 <template>
     <div class="search-bar">
-        <input type="text" v-model="search" placeholder="Chọn tỉnh thành: " class="search-input">
+        <input
+            type="text"
+            v-model="search"
+            placeholder="Chọn tỉnh thành: "
+            class="search-input"
+        />
     </div>
 </template>
 
 <script>
 export default {
-    name: 'SearchBar',
+    name: "SearchBar",
     data() {
         return {
-            search: '',
-        }
+            search: "",
+        };
     },
     watch: {
         search() {
-            this.$emit('search', this.search)
-        }
-    }
-
-
-
-}
+            this.$emit("search", this.search);
+        },
+    },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -39,7 +41,7 @@ export default {
 }
 
 .search-input:focus {
-    border: 1px solid #007BC3;
+    border: 1px solid #007bc3;
     box-shadow: 0px 0px 8px rgba(0, 123, 195, 0.32);
     border-radius: 4px;
     outline: none;

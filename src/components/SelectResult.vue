@@ -2,18 +2,18 @@
     <div class="select-result" v-if="selectedOptions.length">
         <div v-for="item in selectedOptions" :key="item" class="result__item">
             <p>{{ item }}</p>
-            <img src="../assets/close.png" @click="deleteOption(item)">
+            <img src="../assets/close.png" @click="deleteOption(item)" />
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'SelectResult',
+    name: "SelectResult",
     data() {
         return {
             selectedOptions: [],
-        }
+        };
     },
     props: {
         selected: Array,
@@ -21,22 +21,23 @@ export default {
     methods: {
         deleteOption(item) {
             console.log(item);
-            this.selectedOptions = this.selectedOptions.filter(data => data !== item);
-        }
+            this.selectedOptions = this.selectedOptions.filter(
+                (data) => data !== item
+            );
+        },
     },
     watch: {
         selected: {
             immediate: true,
             handler() {
-                this.selectedOptions = this.selected
-            }
+                this.selectedOptions = this.selected;
+            },
         },
         selectedOptions() {
-            this.$emit('deleteOption', this.selectedOptions)
-        }
-
-    }
-}
+            this.$emit("deleteOption", this.selectedOptions);
+        },
+    },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -59,7 +60,7 @@ export default {
     position: relative;
     max-width: 199px;
     min-height: 32px;
-    background-color: #F8F8F8;
+    background-color: #f8f8f8;
     border-radius: 32px;
 
     display: flex;
@@ -69,13 +70,11 @@ export default {
     margin: 8px 4px 8px 8px;
 }
 
-
 .select-result img {
     width: 11px;
     height: 11px;
     margin: 0px 11px 0px 11px;
 }
-
 
 .result__item p {
     /* line-height: 24px; */

@@ -2,18 +2,24 @@
     <div class="list-dropdown">
         <div class="list-scroll">
             <div v-for="item in filteredSearchOption" :key="item.code">
-                <label class="option  container">
-                    <input type="checkbox" checked="checked" :value="item.name" @input="selectNewOption"
-                        v-model="selectedOptions">
+                <label class="option container">
+                    <input
+                        type="checkbox"
+                        checked="checked"
+                        :value="item.name"
+                        @input="selectNewOption"
+                        v-model="selectedOptions"
+                    />
                     <span class="checkmark"></span>
                     {{ item.name }}
-
                 </label>
             </div>
         </div>
 
         <div class="button">
-            <button class="button__accept" @click="acceptSelection">Đồng ý</button>
+            <button class="button__accept" @click="acceptSelection">
+                Đồng ý
+            </button>
             <button class="button__cancel" @click="cancelSelection">Hủy</button>
         </div>
     </div>
@@ -21,57 +27,57 @@
 
 <script>
 export default {
-    name: 'ListDropdown',
+    name: "ListDropdown",
     data() {
         return {
             selectedOptions: [],
-        }
+        };
     },
     props: {
         listAPI: null,
         selected: Array,
-        search: String
+        search: String,
     },
     computed: {
         filteredSearchOption: function () {
             return this.listAPI.filter((item) => {
-                return item.name.toLowerCase().trim().includes(this.search.toLowerCase().trim())
-            })
-        }
+                return item.name
+                    .toLowerCase()
+                    .trim()
+                    .includes(this.search.toLowerCase().trim());
+            });
+        },
     },
     methods: {
         selectNewOption: function ($event) {
             const index = this.selectedOptions.indexOf($event.target.value);
             if (index == -1) {
                 this.selectedOptions.push($event.target.value);
-            }
-            else {
+            } else {
                 this.selectedOptions.splice(index, 1);
             }
         },
         acceptSelection() {
-            this.toggleList()
+            this.toggleList();
         },
         cancelSelection() {
             this.selectedOptions = [];
-            this.$emit('selectNewOption', this.selectedOptions)
-            this.toggleList()
+            this.$emit("selectNewOption", this.selectedOptions);
+            this.toggleList();
         },
         toggleList() {
-            this.$emit('toggleList');
-        }
-
+            this.$emit("toggleList");
+        },
     },
     watch: {
         selected: {
             immediate: true,
             handler() {
-                this.selectedOptions = this.selected
-            }
+                this.selectedOptions = this.selected;
+            },
         },
-
-    }
-}
+    },
+};
 </script>
 
 <!-- Add " scoped" attribute to limit CSS to this component only -->
@@ -82,7 +88,7 @@ export default {
     width: 100%;
     height: 304px;
     align-items: center;
-    background: #FFFFFF;
+    background: #ffffff;
     box-shadow: 0px 1px 8px rgba(102, 102, 102, 0.2);
 }
 
@@ -98,7 +104,7 @@ export default {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #DCDCDC;
+    background: #dcdcdc;
     border-radius: 6px;
 }
 
@@ -109,7 +115,7 @@ export default {
 }
 
 .option:hover {
-    background-color: #E7F1FD;
+    background-color: #e7f1fd;
 }
 
 .button {
@@ -124,7 +130,7 @@ export default {
 .button__accept {
     /* margin-top: 10px; */
     cursor: pointer;
-    background-color: #007BC3;
+    background-color: #007bc3;
     color: #fff;
     padding: 4px 19px;
     outline: none;
@@ -132,7 +138,6 @@ export default {
     border-radius: 4px;
     font-weight: 700;
     font-size: 16px;
-
 
     font-weight: 700;
     height: 32px;
@@ -147,7 +152,7 @@ input {
     cursor: pointer;
     border: 0px;
     background-color: #fff;
-    color: #007BC3;
+    color: #007bc3;
     font-weight: 400;
     font-size: 16px;
     width: 82px;
@@ -169,7 +174,6 @@ input {
     user-select: none;
 }
 
-
 /* Hide the browser's default checkbox */
 .container input {
     position: absolute;
@@ -189,13 +193,13 @@ input {
 }
 
 /* On mouse-over, add a grey background color */
-.container:hover input~.checkmark {
+.container:hover input ~ .checkmark {
     background-color: #ccc;
 }
 
 /* When the checkbox is checked, add a blue background */
-.container input:checked~.checkmark {
-    background-color: #45D1C9;
+.container input:checked ~ .checkmark {
+    background-color: #45d1c9;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -206,7 +210,7 @@ input {
 }
 
 /* Show the checkmark when checked */
-.container input:checked~.checkmark:after {
+.container input:checked ~ .checkmark:after {
     display: block;
 }
 
