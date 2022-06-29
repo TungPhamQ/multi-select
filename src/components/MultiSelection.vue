@@ -1,8 +1,11 @@
 <template>
     <div class="multi-select">
-        <SearchBar />
-        <ListDropdown :listAPI="listAPI" :selected="selected" @selectNewOption="addNewSelectOption" />
-        <SelectResult :selected="selected" @deleteOption="deleteSelectOption" />
+        <SearchBar @click.native="toggleList" />
+
+        <ListDropdown :listAPI="listAPI" :selected="selected" @selectNewOption="updateSelectOption"
+            @toggleList="toggleList" v-if="isShow" />
+
+        <SelectResult :selected="selected" @deleteOption="updateSelectOption" v-if="!isShow && selected.length > 0" />
     </div>
 </template>
 
@@ -15,6 +18,7 @@ export default {
     data() {
         return {
             selected: [],
+            isShow: false,
         }
     },
     components: {
@@ -26,12 +30,14 @@ export default {
         listAPI: null,
     },
     methods: {
-        addNewSelectOption(e) {
+        updateSelectOption(e) {
             this.selected = e
         },
-        deleteSelectOption(e) {
-            this.selected = e;
-        }
+
+        toggleList() {
+            this.isShow = !this.isShow;
+        },
+
     }
 
 }

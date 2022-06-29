@@ -2,16 +2,18 @@
     <div class="list-dropdown">
         <div class="list-scroll">
             <div v-for="item in listAPI" :key="item.code">
-                <label>
-                    <input type="checkbox" :value="item.name" @input="selectNewOption" v-model="selectedOptions">
+                <label class="option  container">
+                    <input type="checkbox" checked="checked" :value="item.name" @input="selectNewOption"
+                        v-model="selectedOptions">
+                    <span class="checkmark"></span>
                     {{ item.name }}
                 </label>
             </div>
         </div>
 
         <div class="button">
-            <button>Đồng ý</button>
-            <button>Hủy</button>
+            <button class="button__accept" @click="acceptSelection">Đồng ý</button>
+            <button class="button__cancel" @click="cancelSelection">Hủy</button>
         </div>
     </div>
 </template>
@@ -38,6 +40,18 @@ export default {
                 this.selectedOptions.splice(index, 1);
             }
         },
+        acceptSelection() {
+            this.toggleList()
+        },
+        cancelSelection() {
+            this.selectedOptions = [];
+            this.$emit('selectNewOption', this.selectedOptions)
+            this.toggleList()
+        },
+        toggleList() {
+            this.$emit('toggleList');
+        }
+
     },
     watch: {
         selected: {
@@ -46,17 +60,12 @@ export default {
                 this.selectedOptions = this.selected
             }
         },
-        selectedOptions: {
-            immediate: true,
-            handler() {
-                this.$emit('selectNewOption', this.selectedOptions)
-            }
-        },
+
     }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<!-- Add " scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .list-dropdown {
     position: relative;
@@ -73,6 +82,27 @@ export default {
     height: 304px;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #DCDCDC;
+    border-radius: 6px;
+}
+
+.option {
+    display: block;
+    line-height: 10px;
+    padding: 8px 0px;
+}
+
+.option:hover {
+    background-color: #E7F1FD;
+}
+
 .button {
     position: absolute;
     bottom: 0px;
@@ -80,5 +110,107 @@ export default {
     display: block;
     width: 100%;
     padding: 8px 0px 16px 16px;
+}
+
+.button__accept {
+    /* margin-top: 10px; */
+    cursor: pointer;
+    background-color: #007BC3;
+    color: #fff;
+    padding: 4px 19px;
+    outline: none;
+    border: 0px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 16px;
+
+
+    font-weight: 700;
+    height: 32px;
+    width: 104px;
+}
+
+input {
+    padding-left: 19px;
+}
+
+.button__cancel {
+    cursor: pointer;
+    border: 0px;
+    background-color: #fff;
+    color: #007BC3;
+    font-weight: 400;
+    font-size: 16px;
+    width: 82px;
+    height: 24px;
+}
+
+/* Custom checkbox */
+/* The container */
+.container {
+    display: block;
+    position: relative;
+    padding: 0px 0px 0px 48px;
+    line-height: 40px;
+    margin-bottom: 0;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+/* Hide the browser's default checkbox */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 11px;
+    left: 19px;
+    height: 18px;
+    width: 18px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked~.checkmark {
+    background-color: #45D1C9;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked~.checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+    left: 4px;
+    top: 2px;
+    width: 6px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 </style>
