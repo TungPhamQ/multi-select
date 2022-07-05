@@ -41,7 +41,9 @@ export default {
     computed: {
         filteredSearchOption: function () {
             return this.listAPI.filter((item) => {
-                return item.name
+                const itemArray = Object.values(item);
+                const itemString = itemArray.join();
+                return itemString
                     .toLowerCase()
                     .trim()
                     .includes(this.search.toLowerCase().trim());
